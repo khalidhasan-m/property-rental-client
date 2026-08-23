@@ -23,7 +23,7 @@ This repository contains the frontend for Nestora, a property rental and booking
 | Stripe React.js | `6.8.2` | Stripe Elements and `PaymentElement` checkout UI |
 | Stripe.js | `9.14.0` | Loading the browser-safe Stripe publishable key |
 | Google OAuth React | `0.13.5` | Rendering Google sign-in and sending the returned ID token to the API |
-| pnpm | `11.21.0` | Package manager |
+| npm | Node.js package manager | Package manager |
 
 ## Implemented client areas
 
@@ -100,8 +100,8 @@ Start the server first because the client requires the API for authentication an
 git clone https://github.com/khalidhasan-m/property-rental-client.git
 cd property-rental-client
 cp .env.example .env.local
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
@@ -110,9 +110,9 @@ The available scripts are:
 
 | Command | Description |
 |---|---|
-| `pnpm dev` | Start the Next.js development server. |
-| `pnpm build` | Create a production build. |
-| `pnpm start` | Start the production build. |
+| `npm run dev` | Start the Next.js development server. |
+| `npm run build` | Create a production build. |
+| `npm run start` | Start the production build. |
 
 ## Image configuration
 

@@ -29,6 +29,5 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4"
-  },
-  "packageManager": "pnpm@11.21.0"
+  }
 }
