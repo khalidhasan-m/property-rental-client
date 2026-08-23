@@ -10,7 +10,7 @@ export function PropertyCard({ property, index = 0 }) {
     const href = user ? `/properties/${property._id}` : "/login";
     const onNavigate = () => { if (!user)
         toast("Please sign in to view property details."); };
-    return (<motion.article initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.35, delay: Math.min(index * 0.06, 0.3) }} className="motion-lift overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--surface)]">
+    return (<motion.article initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.35, delay: Math.min(index * 0.06, 0.3) }} className="transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(17,36,28,0.12)] motion-reduce:transition-none motion-reduce:hover:transform-none overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--surface)]">
       <div className="relative aspect-[4/3] overflow-hidden bg-emerald-100">
         <Image src={property.images[0] || "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80"} alt={property.title} fill className="object-cover transition duration-500 hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw"/>
         <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-xs font-extrabold capitalize text-emerald-900 shadow-sm">{property.propertyType}</span>

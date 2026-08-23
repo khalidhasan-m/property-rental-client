@@ -39,7 +39,7 @@ export default function FavoritesPage() {
 
   return (
     <div>
-      <span className="section-kicker">Tenant dashboard</span>
+      <span className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.12em] text-[var(--brand)]">Tenant dashboard</span>
       <h1 className="mt-2 text-3xl font-black tracking-[-.04em]">Saved properties</h1>
       <p className="mt-2 text-sm text-[var(--muted)]">Keep potential homes close while you decide.</p>
       {items.length ? (
