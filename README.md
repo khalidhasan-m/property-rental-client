@@ -1,134 +1,171 @@
-# Nestora Property Rental Client
+# Nestora Property Rental — Client
 
-This repository contains the frontend for Nestora, a property rental and booking platform. It is a **JavaScript/JSX Next.js application** built with the App Router. The client communicates with the separate Express API through Axios requests and sends credentials so the API can read its HTTP-only authentication cookie.
+Nestora is a property rental and booking marketplace frontend. Tenants can discover approved rental properties, save favourites, submit booking requests, pay reservation fees through Stripe, and review their booking activity. Owners can create and manage property listings, review booking requests, and monitor earnings. Administrators can manage users, moderate listings, monitor bookings, and inspect transactions.
+
+This repository contains the **Next.js client application**. The backend API is maintained separately in [`property-rental-server`](https://github.com/khalidhasan-m/property-rental-server).
+
+## Project links
+
+| Item | Link or value |
+|---|---|
+| Client repository | [`khalidhasan-m/property-rental-client`](https://github.com/khalidhasan-m/property-rental-client) |
+| Server repository | [`khalidhasan-m/property-rental-server`](https://github.com/khalidhasan-m/property-rental-server) |
+| Frontend live URL | **Add the deployed frontend URL here before submission.** |
+| Local frontend URL | `http://localhost:3000` |
+| Local API URL | `http://localhost:5000/api/v1` |
+
+## Features
+
+The client includes a public landing page, approved-property search, backend-powered filtering and sorting, pagination, authenticated property details, tenant favourites, booking and Stripe checkout, booking-success confirmation, tenant bookings, owner property management, owner booking decisions, owner analytics, monthly earnings PDF download, admin user management, admin property moderation, admin booking monitoring, transaction monitoring, Google sign-in, JWT-cookie session restoration, loading and error views, responsive layouts, and light/dark theme switching.
 
 ## Technology stack
 
-| Technology | Version or configuration | Actual use |
-|---|---:|---|
-| Next.js | `16.3.2` | App Router, layouts, pages, navigation, optimized images, and Google fonts |
-| React | `19.2.8` | UI components and client-side hooks |
-| JavaScript and JSX | — | All application source is `.js` or `.jsx`; there is no TypeScript source |
-| Tailwind CSS | `4` | Utility classes and global styling |
-| HeroUI React | `2.6.14` | Buttons, inputs, selects, dialogs, tables, chips, and form controls |
-| Axios | `1.19.0` | API client with `withCredentials: true` |
-| React Hook Form | `7.86.0` | Registration, login, property, profile, and booking forms |
-| Zod | `4.4.3` | Client-side form validation through `@hookform/resolvers` |
-| Framer Motion | `13.1.1` | Hero, navigation, property-card, and review animations |
-| Lucide React | `1.33.0` | Interface icons |
-| React Hot Toast | `2.6.0` | Success and error notifications |
-| next-themes | `0.4.6` | Light and dark theme switching |
-| Recharts | `3.10.1` | Owner earnings area chart |
-| jsPDF | `4.2.1` | Client-generated owner earnings report |
-| Stripe React.js | `6.8.2` | Stripe Elements and `PaymentElement` checkout UI |
-| Stripe.js | `9.14.0` | Loading the browser-safe Stripe publishable key |
-| Google OAuth React | `0.13.5` | Rendering Google sign-in and sending the returned ID token to the API |
-| npm | Node.js package manager | Package manager |
-
-## Implemented client areas
-
-The application contains public home and property-listing pages, an authenticated property-detail view, tenant booking and favourites pages, owner listing and booking-request pages, an owner analytics page, and admin pages for users, properties, bookings, and transactions.
-
-The current client flows are:
-
-1. A visitor can browse the home page and approved-property listing page.
-2. The home page loads featured properties from `/properties/featured` and featured reviews from `/reviews/featured`.
-3. Property-listing filters are stored in the URL and support location, free-text search through the API, property type, minimum price, maximum price, sort order, and pagination.
-4. Property details require authentication. Unauthenticated visitors are redirected to `/login?redirect=/properties/:id`.
-5. Tenants can submit a booking request, create a payment intent, complete Stripe payment, and confirm the payment with the API.
-6. Tenants can save approved properties as favourites and submit or update reviews after a paid booking.
-7. Owners can upload up to eight selected images as base64 data to the API, create listings, edit listings, review rejection feedback, and respond to booking requests.
-8. Owners can view API-provided totals and twelve months of earnings and download a PDF report generated in the browser.
-9. Administrators can view users, properties, bookings, and transactions, change user roles, moderate properties, edit properties, and delete properties.
+| Technology | Version or use |
+|---|---|
+| Next.js | `16.3.2`, App Router |
+| React | `19.2.8` |
+| JavaScript/JSX | Application source language |
+| Tailwind CSS | `4`, utility-first styling |
+| HeroUI React | Form controls, buttons, dialogs, tables, chips, and selects |
+| Axios | API requests with credentials enabled |
+| React Hook Form and Zod | Form state and validation |
+| Framer Motion | Hero, navigation, property-card, and review animations |
+| Recharts | Owner earnings visualization |
+| Stripe React.js and Stripe.js | Stripe Elements checkout |
+| Google OAuth React | Google sign-in UI |
+| jsPDF | Owner earnings report generation |
+| next-themes | Light/dark theme switching |
+| Lucide React | Interface icons |
+| React Hot Toast | Success and error notifications |
+| npm | Package manager |
 
 ## Main routes
 
-| Route | Purpose |
-|---|---|
-| `/` | Home page, featured properties, featured reviews, and search form |
-| `/properties` | Approved-property search, filtering, sorting, and pagination |
-| `/properties/[id]` | Authenticated property details, favourites, reviews, and booking request |
-| `/login` | Email/password login and optional Google sign-in |
-| `/register` | Tenant or owner registration |
-| `/payment/[propertyId]` | Stripe Elements payment flow for a booking |
-| `/booking-success` | Payment-success confirmation page |
-| `/dashboard/tenant/bookings` | Tenant booking history |
-| `/dashboard/tenant/favorites` | Tenant saved properties |
-| `/dashboard/owner` | Owner metrics, earnings chart, and PDF report |
-| `/dashboard/owner/properties` | Owner property list and deletion |
-| `/dashboard/owner/properties/add` | Owner property creation and image upload |
-| `/dashboard/owner/properties/[id]/edit` | Owner property editing |
-| `/dashboard/owner/booking-requests` | Owner booking decisions |
-| `/dashboard/admin/users` | Admin user list and role changes |
-| `/dashboard/admin/properties` | Admin property moderation and editing |
-| `/dashboard/admin/bookings` | Admin booking list |
-| `/dashboard/admin/transactions` | Admin transaction list |
-| `/dashboard/profile` | Authenticated profile editing |
+| Route | Access | Purpose |
+|---|---|---|
+| `/` | Public | Landing page, search, featured properties, reviews, and extra content |
+| `/properties` | Public | Approved-property search, filters, sorting, and pagination |
+| `/properties/[id]` | Authenticated | Property details, favourites, reviews, and booking request |
+| `/login` | Public | Email/password and optional Google sign-in |
+| `/register` | Public | Tenant or owner account registration |
+| `/payment/[propertyId]` | Tenant | Stripe Elements payment flow |
+| `/booking-success` | Authenticated | Payment-success confirmation |
+| `/dashboard/tenant/bookings` | Tenant | Booking history and payment statuses |
+| `/dashboard/tenant/favorites` | Tenant | Saved properties and remove action |
+| `/dashboard/owner` | Owner | Analytics, earnings chart, and PDF download |
+| `/dashboard/owner/properties` | Owner | Owner listing table, status, update, and delete |
+| `/dashboard/owner/properties/add` | Owner | Create a property listing and upload images |
+| `/dashboard/owner/properties/[id]/edit` | Owner | Update an owned property |
+| `/dashboard/owner/booking-requests` | Owner | Approve or reject booking requests |
+| `/dashboard/admin/users` | Admin | View users and change roles |
+| `/dashboard/admin/properties` | Admin | Approve, reject, update, or delete properties |
+| `/dashboard/admin/bookings` | Admin | Monitor booking activity |
+| `/dashboard/admin/transactions` | Admin | View successful payment transactions |
+| `/dashboard/profile` | Authenticated | Update profile name, phone, and photo URL |
 
-## API communication
+## Requirements
 
-The API helper is defined in `src/lib/api.js`. It creates an Axios instance with the following behavior:
+Use **Node.js 20 or newer** and npm. Verify the installed versions before starting:
 
-- The base URL comes from `NEXT_PUBLIC_API_URL`, falling back to `http://localhost:5000/api/v1`.
-- `withCredentials` is enabled so browser requests include the server's authentication cookie.
-- Requests use `Content-Type: application/json`.
-- API error messages are read from `error.response.data.message` when available.
+```bash
+node --version
+npm --version
+```
 
-The client does not store the JWT in local storage. The authentication context calls `/auth/me` when the application starts, and logout calls `/auth/logout` before clearing the local user state.
+Clone the repository and install dependencies:
 
-## Environment variables
+```bash
+git clone https://github.com/khalidhasan-m/property-rental-client.git
+cd property-rental-client
+npm install
+```
 
-Create `.env.local` from `.env.example`:
+The backend should be running before testing authenticated pages or API-backed data. Create the local client environment file:
 
 ```bash
 cp .env.example .env.local
 ```
 
+Edit `.env.local` with the values below:
+
 | Variable | Required | Description |
 |---|---|---|
 | `NEXT_PUBLIC_API_URL` | Yes | API base URL, normally `http://localhost:5000/api/v1` locally. |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | For payments | Stripe browser publishable key, normally beginning with `pk_test_` during development. |
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | For Google sign-in | Google OAuth web client ID. If absent, the Google sign-in control is not rendered. |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | For payments | Browser-safe Stripe publishable key. Use a test key during development. |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | For Google sign-in | Google OAuth web client ID. If omitted, the Google button is not rendered. |
 
-`NEXT_PUBLIC_SITE_URL` is not currently read by the client source and is therefore not included in the environment example.
+Never put `STRIPE_SECRET_KEY`, `MONGODB_URI`, `JWT_SECRET`, or `IMGBB_API_KEY` in this repository or in any `NEXT_PUBLIC_*` variable. Local environment files are ignored by Git.
 
-## Local development
+## Development commands
 
-Start the server first because the client requires the API for authentication and data requests.
+Start the development server:
 
 ```bash
-git clone https://github.com/khalidhasan-m/property-rental-client.git
-cd property-rental-client
-cp .env.example .env.local
-npm install
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
-The available scripts are:
-
-| Command | Description |
+| Command | Purpose |
 |---|---|
 | `npm run dev` | Start the Next.js development server. |
-| `npm run build` | Create a production build. |
-| `npm run start` | Start the production build. |
+| `npm run build` | Create and validate a production build. |
+| `npm run start` | Start the previously built production application. |
+
+For a production-style local check:
+
+```bash
+npm run build
+npm run start
+```
+
+## Backend integration
+
+The Axios client is defined in `src/lib/api.js`. It reads `NEXT_PUBLIC_API_URL`, sends JSON requests, and enables `withCredentials` so the backend can read the HTTP-only `accessToken` cookie. The client restores the current account by calling `/auth/me` when the application starts; it does not store the JWT in local storage.
+
+Start the companion server in a separate terminal before using authentication, favourites, booking, payment, reviews, analytics, or admin pages:
+
+```bash
+cd ../property-rental-server
+npm install
+cp .env.example .env
+npm run dev
+```
 
 ## Image configuration
 
-`next.config.mjs` allows optimized remote images from `images.unsplash.com`, used for the home-page hero and fallback property images, and `i.ibb.co`, used for uploaded property images returned by the server's imgbb integration.
+`next.config.mjs` allows optimized remote images from `images.unsplash.com` and `i.ibb.co`. The home-page hero and fallback images use Unsplash. Owner-uploaded images are returned by the server’s ImgBB integration and are served from `i.ibb.co`.
+
+## Testing and acceptance checks
+
+The client production build is the primary automated client check:
+
+```bash
+npm run build
+```
+
+Before deployment or submission, test the following manually in a clean browser session:
+
+- Registration with both permitted account roles, validation errors, duplicate email handling, and photo URL validation.
+- Email/password login, Google sign-in when configured, logout, session restoration, and hard reloads on private routes.
+- Tenant favourites, booking modal validation, Stripe test payment, booking-success redirect, bookings table, and review submission after a paid booking.
+- Owner property creation, image upload, editing, status display, rejection-feedback viewing, booking decisions, analytics, chart, and PDF download.
+- Admin users, role changes, property moderation, rejection feedback, bookings, and transactions.
+- Public property search by location, type, minimum price, maximum price, sorting, combined filters, no-result states, and pagination.
+- Mobile, tablet, and desktop layouts, including tables, dialogs, forms, charts, navigation, loading views, error views, and dark/light themes.
+- Direct navigation and hard reload of every route without blank pages, broken chunks, CORS errors, or incorrect redirects.
 
 ## Deployment
 
-Deploy this repository as a Next.js project on Vercel. Configure the three client environment variables in the Vercel project. Set `NEXT_PUBLIC_API_URL` to the deployed API base URL ending in `/api/v1`, and configure the server's `CLIENT_URL` to the exact deployed frontend origin.
+Deploy the client as a Next.js project, for example on Vercel. Configure the environment variables in the production project and set:
 
-Use a real Stripe publishable key only in the appropriate Vercel environment. Never place Stripe secret keys, the imgbb API key, the MongoDB URI, or `JWT_SECRET` in this repository or in any `NEXT_PUBLIC_*` variable.
+```text
+NEXT_PUBLIC_API_URL=https://<your-api-domain>/api/v1
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=<your-stripe-publishable-key>
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=<your-google-client-id>
+```
 
-## Current implementation boundaries
-
-This repository does not contain a database client, server-side authentication implementation, payment secret, image-hosting secret, or backend business logic. Those responsibilities belong to the companion [property-rental-server](https://github.com/khalidhasan-m/property-rental-server) repository.
-
-The client source does not use Firebase, Supabase, Mongoose, Prisma, Redux, Zustand, GraphQL, Socket.IO, or a client-side JWT store. It uses the technologies listed above and the browser APIs required for file reading, clipboard copying, URL parameters, and opening a WhatsApp share link.
+Use HTTPS for the frontend and API. Configure the server’s `CLIENT_URL` to the exact frontend origin. After deployment, replace the placeholder frontend URL in the **Project links** table with the real URL and use that same URL in the assignment submission.
 
 ## Repository structure
 
@@ -138,13 +175,15 @@ src/
 ├── components/           Shared UI, payment, property, review, and dashboard components
 ├── contexts/             React authentication context
 └── lib/                  Axios API client and error helper
+public/                   Static assets
+.env.example              Safe environment-variable template
+package.json              npm scripts and dependencies
+package-lock.json         npm lockfile
 ```
 
-The frontend uses the `@/*` import alias, configured in `jsconfig.json` to point to `src/*`.
+## Security notes
 
-## Related repository
-
-The backend API is maintained separately at [khalidhasan-m/property-rental-server](https://github.com/khalidhasan-m/property-rental-server).
+The client relies on the server for real authentication and authorization. Hiding dashboard navigation is not a security boundary; all protected operations must continue to be enforced by the backend. Do not commit environment files, credentials, payment secrets, database URLs, or generated private keys.
 
 ## License
 
