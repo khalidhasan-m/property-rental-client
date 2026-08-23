@@ -15,14 +15,14 @@ import { ReviewForm } from "@/components/ReviewForm";
 const bookingSchema = z.object({ moveInDate: z.string().min(1, "Choose a move-in date"), contactNumber: z.string().min(6, "Enter a valid number"), notes: z.string().max(1000).optional() });
 export function PropertyDetailClient({ id }) {
     const router = useRouter();
-    const { user } = useAuth();
+    const { user, isLoading: authLoading } = useAuth();
     const [property, setProperty] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const form = useForm({ resolver: zodResolver(bookingSchema), defaultValues: { moveInDate: "", contactNumber: user?.phone || "", notes: "" } });
-    useEffect(() => { Promise.all([api.get(`/properties/${id}`), api.get(`/reviews/${id}`)]).then(([p, r]) => { setProperty(p.data.data); setReviews(r.data.data || []); }).catch(() => setProperty(null)).finally(() => setLoading(false)); }, [id]);
+    useEffect(() => { if (!authLoading && !user) { router.replace(`/login?redirect=/properties/${id}`); return; } if (authLoading || !user) return; Promise.all([api.get(`/properties/${id}`), api.get(`/reviews/${id}`)]).then(([p, r]) => { setProperty(p.data.data); setReviews(r.data.data || []); }).catch(() => setProperty(null)).finally(() => setLoading(false)); }, [authLoading, user, id, router]);
     const share = async () => { await navigator.clipboard.writeText(window.location.href); toast.success("Property link copied to clipboard"); };
     const favorite = async () => { try {
         await api.post("/favorites", { propertyId: id });
@@ -43,6 +43,8 @@ export function PropertyDetailClient({ id }) {
     finally {
         setSubmitting(false);
     } };
+    if (authLoading || (!user && !property))
+        return <LoadingState label="Checking your access…"/>;
     if (loading)
         return <LoadingState label="Loading property details…"/>;
     if (!property)
@@ -52,6 +54,6 @@ export function PropertyDetailClient({ id }) {
         <aside className="h-fit rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-6 shadow-xl shadow-emerald-950/5 lg:sticky lg:top-24"><p className="text-3xl font-black text-[var(--brand)]">${property.rent.toLocaleString()}<span className="text-base font-medium text-[var(--muted)]"> / {property.rentType.replace("ly", "")}</span></p><p className="mt-3 text-sm leading-6 text-[var(--muted)]">Request this rental with secure Stripe payment. The owner will review your booking afterwards.</p><Button className="mt-6 w-full bg-[var(--brand)] font-black text-white" onPress={() => { if (!user)
         return router.push("/login"); if (!canBook)
         return toast.error("Only tenant accounts can book properties."); setIsOpen(true); }}>Book property</Button><p className="mt-4 text-center text-xs font-semibold text-[var(--muted)]">Reservation amount due now. Owner approval follows payment.</p></aside></div>
-    <Modal isOpen={isOpen} onOpenChange={setIsOpen} size="lg" placement="center"><ModalContent>{(onClose) => <form onSubmit={form.handleSubmit(submitBooking)}><ModalHeader>Confirm your booking request</ModalHeader><ModalBody><p className="text-sm text-[var(--muted)]">Your booking will be submitted for <strong>{property.title}</strong>.</p><label className="grid gap-1 text-sm font-bold">Move-in date<input type="date" min={new Date().toISOString().split("T")[0]} className="rounded-xl border border-[var(--line)] bg-transparent px-3 py-2 outline-none focus:border-[var(--brand)]" {...form.register("moveInDate")}/></label>{form.formState.errors.moveInDate && <p className="text-xs text-rose-600">{form.formState.errors.moveInDate.message}</p>}<label className="grid gap-1 text-sm font-bold">Contact number<input className="rounded-xl border border-[var(--line)] bg-transparent px-3 py-2 outline-none focus:border-[var(--brand)]" {...form.register("contactNumber")}/></label>{form.formState.errors.contactNumber && <p className="text-xs text-rose-600">{form.formState.errors.contactNumber.message}</p>}<Textarea label="Additional notes" {...form.register("notes")}/></ModalBody><ModalFooter><Button variant="light" onPress={onClose}>Cancel</Button><Button type="submit" isLoading={submitting} className="bg-[var(--brand)] font-bold text-white">Continue to payment</Button></ModalFooter></form>}</ModalContent></Modal>
+    <Modal isOpen={isOpen} onOpenChange={setIsOpen} size="lg" placement="center"><ModalContent>{(onClose) => <form onSubmit={form.handleSubmit(submitBooking)}><ModalHeader>Confirm your booking request</ModalHeader><ModalBody><p className="text-sm text-[var(--muted)]">Your booking will be submitted for <strong>{property.title}</strong>.</p><div className="rounded-2xl bg-emerald-50 p-4 text-sm dark:bg-emerald-950"><p className="text-xs font-extrabold uppercase tracking-wide text-[var(--muted)]">Booking as</p><p className="mt-1 font-black">{user?.name}</p><p className="text-[var(--muted)]">{user?.email}</p></div><label className="grid gap-1 text-sm font-bold">Move-in date<input type="date" min={new Date().toISOString().split("T")[0]} className="rounded-xl border border-[var(--line)] bg-transparent px-3 py-2 outline-none focus:border-[var(--brand)]" {...form.register("moveInDate")}/></label>{form.formState.errors.moveInDate && <p className="text-xs text-rose-600">{form.formState.errors.moveInDate.message}</p>}<label className="grid gap-1 text-sm font-bold">Contact number<input className="rounded-xl border border-[var(--line)] bg-transparent px-3 py-2 outline-none focus:border-[var(--brand)]" {...form.register("contactNumber")}/></label>{form.formState.errors.contactNumber && <p className="text-xs text-rose-600">{form.formState.errors.contactNumber.message}</p>}<Textarea label="Additional notes" {...form.register("notes")}/></ModalBody><ModalFooter><Button variant="light" onPress={onClose}>Cancel</Button><Button type="submit" isLoading={submitting} className="bg-[var(--brand)] font-bold text-white">Continue to payment</Button></ModalFooter></form>}</ModalContent></Modal>
   </div>;
 }

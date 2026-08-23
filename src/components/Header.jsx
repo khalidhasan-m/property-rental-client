@@ -45,7 +45,7 @@ export function Header() {
               <Button color="primary" className="bg-[var(--brand)] font-bold text-white" onPress={onLogout}>Logout</Button>
             </>) : !isLoading ? (<>
               <Link href="/login"><Button variant="light" className="font-bold">Login</Button></Link>
-              <Link href="/register"><Button className="bg-[var(--brand)] font-bold text-white">Get started</Button></Link>
+              <Link href="/register"><Button className="bg-[var(--brand)] font-bold text-white">Register</Button></Link>
             </>) : null}
         </div>
 
@@ -63,7 +63,7 @@ export function Header() {
         {menuOpen && (<motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.18 }} className="border-t border-[var(--line)] bg-[var(--surface)] px-4 py-4 md:hidden">
             <nav className="container-shell grid gap-2" aria-label="Mobile navigation">
               {navigation.map((item) => <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 font-bold hover:bg-emerald-50 dark:hover:bg-emerald-950">{item.label}</Link>)}
-              {user ? <><Link href="/dashboard" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 font-bold hover:bg-emerald-50 dark:hover:bg-emerald-950">Dashboard</Link><button onClick={onLogout} className="rounded-xl px-4 py-3 text-left font-bold text-rose-600">Logout</button></> : <><Link href="/login" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 font-bold">Login</Link><Link href="/register" onClick={() => setMenuOpen(false)} className="rounded-xl bg-[var(--brand)] px-4 py-3 font-bold text-white">Get started</Link></>}
+              {user ? <><Link href="/dashboard" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 font-bold hover:bg-emerald-50 dark:hover:bg-emerald-950">Dashboard</Link><button onClick={onLogout} className="rounded-xl px-4 py-3 text-left font-bold text-rose-600">Logout</button></> : <><Link href="/login" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 font-bold">Login</Link><Link href="/register" onClick={() => setMenuOpen(false)} className="rounded-xl bg-[var(--brand)] px-4 py-3 font-bold text-white">Register</Link></>}
             </nav>
           </motion.div>)}
       </AnimatePresence>

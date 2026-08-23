@@ -11,6 +11,7 @@ import { api, getApiErrorMessage } from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
 import { GoogleLogin } from "@react-oauth/google";
 const schema = z.object({ email: z.string().email("Enter a valid email"), password: z.string().min(6, "Password must be at least 6 characters") });
+const getSafeRedirect = () => { if (typeof window === "undefined") return "/dashboard"; const value = new URLSearchParams(window.location.search).get("redirect"); return value && value.startsWith("/") && !value.startsWith("//") ? value : "/dashboard"; };
 export default function LoginPage() {
     const router = useRouter();
     const { setUser } = useAuth();
@@ -19,7 +20,7 @@ export default function LoginPage() {
         const { data } = await api.post("/auth/login", values);
         setUser(data.data);
         toast.success("Welcome back");
-        router.push("/dashboard");
+        router.push(getSafeRedirect());
     }
     catch (error) {
         toast.error(getApiErrorMessage(error));
@@ -29,7 +30,7 @@ export default function LoginPage() {
         const { data } = await api.post("/auth/social-login", { idToken: credential });
         setUser(data.data);
         toast.success("Signed in with Google as a tenant");
-        router.push("/dashboard");
+        router.push(getSafeRedirect());
     }
     catch (error) {
         toast.error(getApiErrorMessage(error));
