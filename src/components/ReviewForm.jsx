@@ -4,16 +4,16 @@ import { Button, Textarea } from "@heroui/react";
 import { Star } from "lucide-react";
 import toast from "react-hot-toast";
 import { api, getApiErrorMessage } from "@/lib/api";
-export function ReviewForm({ propertyId, onSaved }) {
-    const [rating, setRating] = useState(5);
-    const [comment, setComment] = useState("");
+export function ReviewForm({ propertyId, onReviewAdded, initialRating = 5, initialComment = "" }) {
+    const [rating, setRating] = useState(initialRating);
+    const [comment, setComment] = useState(initialComment);
     const [saving, setSaving] = useState(false);
     const submit = async (event) => { event.preventDefault(); if (comment.trim().length < 3)
         return toast.error("Write at least three characters for your review"); setSaving(true); try {
         await api.post("/reviews", { propertyId, rating, comment });
         toast.success("Your review was saved");
         setComment("");
-        onSaved();
+        if (onReviewAdded) onReviewAdded();
     }
     catch (error) {
         toast.error(getApiErrorMessage(error));

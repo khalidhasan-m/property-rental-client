@@ -1,37 +1,89 @@
 "use client";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { authClient } from "@/lib/auth-client";
+
 const AuthContext = createContext(undefined);
+
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
+    const [user, setUserState] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+
+    const setUser = useCallback((userData) => {
+        if (userData?.token && typeof window !== "undefined") {
+            localStorage.setItem("token", userData.token);
+            localStorage.setItem("accessToken", userData.token);
+        }
+        setUserState(userData);
+    }, []);
+
     const refreshUser = useCallback(async () => {
+        // Always prefer our own /auth/me — it has photoURL from MongoDB
         try {
             const { data } = await api.get("/auth/me");
-            setUser(data.data);
+            if (data?.data) {
+                setUser(data.data);
+                setIsLoading(false);
+                return;
+            }
+        } catch {
+            // Fallback to Better Auth session
         }
-        catch {
-            setUser(null);
+
+        // Fallback: read Better Auth session (e.g. right after OAuth before our cookie is set)
+        try {
+            const session = await authClient.getSession();
+            if (session?.data?.user) {
+                const u = session.data.user;
+                setUser({
+                    ...u,
+                    _id: u.id || u._id,
+                    photoURL: u.photoURL || u.image || undefined,
+                    role: u.role || "tenant",
+                });
+                setIsLoading(false);
+                return;
+            }
+        } catch {
+            // ignore
         }
-        finally {
-            setIsLoading(false);
+
+        setUser(null);
+        if (typeof window !== "undefined") {
+            localStorage.removeItem("token");
+            localStorage.removeItem("accessToken");
         }
-    }, []);
+        setIsLoading(false);
+    }, [setUser]);
+
     useEffect(() => {
         void refreshUser();
     }, [refreshUser]);
+
     const logout = async () => {
         try {
-            await api.post("/auth/logout");
+            await authClient.signOut();
+        } catch {
+            // ignore fallback
         }
-        finally {
+        try {
+            await api.post("/auth/logout");
+        } finally {
+            if (typeof window !== "undefined") {
+                localStorage.removeItem("token");
+                localStorage.removeItem("accessToken");
+            }
             setUser(null);
         }
     };
-    return (<AuthContext.Provider value={{ user, isLoading, refreshUser, logout, setUser }}>
-      {children}
-    </AuthContext.Provider>);
+
+    return (
+        <AuthContext.Provider value={{ user, isLoading, refreshUser, logout, setUser }}>
+            {children}
+        </AuthContext.Provider>
+    );
 }
+
 export function useAuth() {
     const context = useContext(AuthContext);
     if (!context)

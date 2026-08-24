@@ -29,7 +29,8 @@ The client includes a public landing page, approved-property search, backend-pow
 | HeroUI React | Form controls, buttons, dialogs, tables, chips, and selects |
 | Axios | API requests with credentials enabled |
 | React Hook Form and Zod | Form state and validation |
-| Framer Motion | Hero, navigation, property-card, and review animations |
+| Framer Motion | Hero, navigation, property-card, reviews, and extra section animations |
+| Canvas API | Client-side image compression (auto-resize and quality reduction) before upload |
 | Recharts | Owner earnings visualization |
 | Stripe React.js and Stripe.js | Stripe Elements checkout |
 | Google OAuth React | Google sign-in UI |
@@ -157,15 +158,18 @@ Before deployment or submission, test the following manually in a clean browser 
 
 ## Deployment
 
-Deploy the client as a Next.js project, for example on Vercel. Configure the environment variables in the production project and set:
+To deploy this project to Vercel:
 
-```text
-NEXT_PUBLIC_API_URL=https://<your-api-domain>/api/v1
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=<your-stripe-publishable-key>
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=<your-google-client-id>
-```
-
-Use HTTPS for the frontend and API. Configure the server’s `CLIENT_URL` to the exact frontend origin. After deployment, replace the placeholder frontend URL in the **Project links** table with the real URL and use that same URL in the assignment submission.
+1. Push your code to a GitHub repository.
+2. Log in to your [Vercel Dashboard](https://vercel.com/dashboard).
+3. Click "Add New..." and select "Project".
+4. Import your repository.
+5. In the "Environment Variables" section, add the following variables:
+   - `NEXT_PUBLIC_API_URL`: Your production backend URL (e.g., `https://api.yourdomain.com/api/v1`).
+   - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`: Your Stripe publishable key.
+   - `NEXT_PUBLIC_GOOGLE_CLIENT_ID`: Your Google OAuth client ID.
+6. Click "Deploy".
+7. Once finished, ensure your backend server's `CLIENT_URL` environment variable is updated to match your new Vercel deployment URL to prevent CORS issues.
 
 ## Repository structure
 
