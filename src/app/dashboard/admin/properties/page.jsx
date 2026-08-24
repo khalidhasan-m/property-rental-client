@@ -148,7 +148,7 @@ export default function AdminPropertiesPage() {
                                     </Chip>
                                 </td>
                                 <td className="p-4">
-                                    <div className="flex gap-1.5">
+                                    <div className="flex flex-wrap gap-1.5">
                                         {property.status !== "approved" && (
                                             <Button isIconOnly size="sm" color="success" variant="flat" aria-label="Approve" onPress={() => setModerating({ property, status: "approved" })}>
                                                 <Check size={16}/>

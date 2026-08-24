@@ -118,7 +118,7 @@ export default function Home() {
     };
 
     return (
-        <div className="overflow-hidden">
+        <div className="overflow-x-auto">
             {/* ══════════════════ HERO BANNER ══════════════════ */}
             <section className="relative isolate overflow-hidden py-20 text-white sm:py-28 lg:py-32">
                 <Image
@@ -132,7 +132,7 @@ export default function Home() {
                 <div className="pointer-events-none absolute -right-28 top-10 size-96 rounded-full bg-amber-400/20 blur-3xl" />
                 <div className="pointer-events-none absolute -left-28 bottom-[-10rem] size-96 rounded-full bg-emerald-400/20 blur-3xl" />
 
-                <div className="mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8 relative grid items-center gap-12 lg:grid-cols-[1.1fr_.9fr]">
+                <div className="mx-auto w-full max-w-full lg:max-w-[1180px] px-4 sm:px-6 lg:px-8 relative grid items-center gap-12 lg:grid-cols-[1.1fr_.9fr]">
                     <motion.div
                         initial={{ opacity: 0, y: 28 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -182,7 +182,7 @@ export default function Home() {
                         initial={{ opacity: 0, scale: 0.95, x: 20 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ duration: 0.65, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
-                        className="rounded-[2.5rem] border border-[var(--line)] bg-[var(--surface)] p-6 text-[var(--foreground)] shadow-2xl shadow-emerald-950/40 backdrop-blur-2xl sm:p-7"
+                        className="w-full rounded-[2.5rem] border border-[var(--line)] bg-[var(--surface)] p-6 text-[var(--foreground)] shadow-2xl shadow-emerald-950/40 backdrop-blur-2xl sm:p-7"
                     >
                         <div className="mb-5 flex items-center justify-between">
                             <p className="text-xs font-black uppercase tracking-[0.14em] text-[var(--brand)]">Start Your Search</p>
@@ -197,7 +197,7 @@ export default function Home() {
                                 <SelectItem key="Studio">Studio</SelectItem>
                                 <SelectItem key="Room">Single Room</SelectItem>
                             </Select>
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <Input label="Min price ($)" labelPlacement="outside" type="number" placeholder="0" value={minPrice} onValueChange={setMinPrice} />
                                 <Input label="Max price ($)" labelPlacement="outside" type="number" placeholder="Any" value={maxPrice} onValueChange={setMaxPrice} />
                             </div>
