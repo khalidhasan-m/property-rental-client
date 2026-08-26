@@ -47,7 +47,7 @@ export default function ProfilePage() {
             // Convert to base64
             const base64 = await new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                reader.onload = () => resolve(reader.result.split(",")[1]);
+                reader.onload = () => resolve(reader.result);
                 reader.onerror = reject;
                 reader.readAsDataURL(file);
             });
