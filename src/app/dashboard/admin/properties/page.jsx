@@ -127,7 +127,7 @@ export default function AdminPropertiesPage() {
                             <th className="p-4">Owner</th>
                             <th className="p-4">Rent</th>
                             <th className="p-4">Status</th>
-                            <th className="p-4">Actions</th>
+                            <th className="p-4 min-w-[180px] whitespace-nowrap">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -147,8 +147,8 @@ export default function AdminPropertiesPage() {
                                         {property.status}
                                     </Chip>
                                 </td>
-                                <td className="p-4">
-                                    <div className="flex flex-wrap gap-1.5">
+                                <td className="p-4 min-w-[180px] whitespace-nowrap">
+                                    <div className="flex flex-nowrap items-center gap-1.5">
                                         {property.status !== "approved" && (
                                             <Button isIconOnly size="sm" color="success" variant="flat" aria-label="Approve" onPress={() => setModerating({ property, status: "approved" })}>
                                                 <Check size={16}/>
