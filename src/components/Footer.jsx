@@ -43,9 +43,9 @@ export function Footer() {
         <footer className="mt-auto border-t border-[var(--line)] bg-[var(--surface)]">
             {/* Stats bar */}
             <div className="border-b border-white/10 bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 py-6">
-                <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-center">
-                    <div className="flex items-center text-center gap-8">
-                        <div className="flex items-center gap-6">
+                <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center sm:gap-8">
+                        <div className="flex min-w-0 items-center justify-center gap-3 sm:gap-6">
                             {/* Users icon */}
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-300 mb-1"><path d="M17 21v-2a4 4 0 0 0-3-3.87" /><path d="M9 21v-2a4 4 0 0 1 3-3.87" /><circle cx="12" cy="7" r="4" /></svg>
                             <div className="text-left">
@@ -53,8 +53,8 @@ export function Footer() {
                                 <p className="text-xs text-emerald-300">Happy Tenants</p>
                             </div>
                         </div>
-                        <div className="h-6 border-l border-white mx-4" aria-hidden="true"></div>
-                        <div className="flex items-center gap-6">
+                        <div className="hidden h-6 border-l border-white sm:block" aria-hidden="true"></div>
+                        <div className="flex min-w-0 items-center justify-center gap-3 sm:gap-6">
                             {/* Map icon */}
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-300 mb-1"><path d="M21 10c0 6-9 13-9 13s-9-7-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                             <div className="text-left">
@@ -62,8 +62,8 @@ export function Footer() {
                                 <p className="text-xs text-emerald-300">Cities Served</p>
                             </div>
                         </div>
-                        <div className="h-6 border-l border-white mx-4" aria-hidden="true"></div>
-                        <div className="flex items-center gap-6">
+                        <div className="hidden h-6 border-l border-white sm:block" aria-hidden="true"></div>
+                        <div className="flex min-w-0 items-center justify-center gap-3 sm:gap-6">
                             {/* Home icon */}
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-300 mb-1"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4H9v4a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9z" /></svg>
                             <div className="text-left">
