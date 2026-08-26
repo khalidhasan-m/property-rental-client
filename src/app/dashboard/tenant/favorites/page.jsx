@@ -12,13 +12,22 @@ export default function FavoritesPage() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const [removing, setRemoving] = useState(false);
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({ page: 1, limit: 10, total: 0, pages: 1 });
 
   useEffect(() => {
-    api.get("/favorites")
-      .then(({ data }) => setItems(data.data || []))
-      .catch(() => setItems([]))
+    setLoading(true);
+    api.get("/favorites", { params: { page, limit: 10 } })
+      .then(({ data }) => {
+        setItems(data.data || []);
+        setPagination(data.pagination || { page, limit: 10, total: 0, pages: 1 });
+      })
+      .catch(() => {
+        setItems([]);
+        setPagination({ page: 1, limit: 10, total: 0, pages: 1 });
+      })
       .finally(() => setLoading(false));
-  }, []);
+  }, [page]);
 
   const remove = async () => {
     if (!selected) return;
@@ -68,6 +77,7 @@ export default function FavoritesPage() {
           <Link className="mt-4 inline-block text-sm font-bold text-[var(--brand)]" href="/properties">Explore properties</Link>
         </div>
       )}
+      <div className="mt-5 flex justify-center gap-3"><Button variant="flat" isDisabled={loading || pagination.page <= 1} onPress={() => setPage((old) => old - 1)}>Previous</Button><span className="py-2 text-sm font-bold">Page {pagination.page} of {pagination.pages}</span><Button variant="flat" isDisabled={loading || pagination.page >= pagination.pages} onPress={() => setPage((old) => old + 1)}>Next</Button></div>
       <Modal isOpen={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
         <ModalContent>{(onClose) => <>
           <ModalHeader>Remove saved property?</ModalHeader>
