@@ -43,8 +43,8 @@ export default function FavoritesPage() {
       <h1 className="mt-2 text-3xl font-black tracking-[-.04em]">Saved properties</h1>
       <p className="mt-2 text-sm text-[var(--muted)]">Keep potential homes close while you decide.</p>
       {items.length ? (
-        <div className="mt-7 overflow-x-auto rounded-3xl border border-[var(--line)] bg-[var(--surface)]">
-          <table className="w-full min-w-[720px] text-left text-sm">
+        <div className="mt-7 min-w-0 max-w-full overflow-x-auto overscroll-x-contain rounded-3xl border border-[var(--line)] bg-[var(--surface)]">
+          <table className="dashboard-table w-full min-w-[720px] lg:min-w-0 text-left text-sm">
             <thead className="border-b border-[var(--line)] bg-emerald-50/60 text-xs uppercase tracking-wide text-[var(--muted)] dark:bg-emerald-950/50">
               <tr><th className="p-4">Property</th><th className="p-4">Location</th><th className="p-4">Type</th><th className="p-4">Rent</th><th className="p-4">Action</th></tr>
             </thead>

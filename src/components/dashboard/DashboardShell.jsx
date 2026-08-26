@@ -63,7 +63,7 @@ export function DashboardShell({ children }) {
     const initials = user.name?.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase() || "?";
 
     return (
-        <div className="bg-[var(--background)] min-h-screen">
+        <div className="bg-[var(--background)] min-h-screen overflow-x-clip">
             <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-6 px-4 py-6 lg:flex-row lg:px-6 lg:py-8">
                 {/* Sidebar */}
                 <aside className="shrink-0 lg:w-64">

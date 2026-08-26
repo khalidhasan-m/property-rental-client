@@ -130,3 +130,15 @@ main { animation: fadeUp 0.35s cubic-bezier(0.23,1,0.32,1) both; }
 [data-slot="input-wrapper"]:focus-within {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent) !important;
 }
+/* Dashboard tables stay compact on desktop and scroll inside their card on small screens. */
+@media (min-width: 1024px) {
+  .dashboard-table {
+    min-width: 0 !important;
+    width: 100%;
+    table-layout: fixed;
+  }
+  .dashboard-table th,
+  .dashboard-table td {
+    overflow-wrap: anywhere;
+  }
+}

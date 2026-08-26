@@ -119,8 +119,8 @@ export default function AdminPropertiesPage() {
             <h1 className="mt-2 text-3xl font-black tracking-[-.04em]">All properties</h1>
             <p className="mt-2 text-sm text-[var(--muted)]">Moderate submissions and keep marketplace listings accurate.</p>
 
-            <div className="mt-7 overflow-x-auto rounded-3xl border border-[var(--line)] bg-[var(--surface)] shadow-sm">
-                <table className="w-full min-w-[900px] text-left text-sm">
+            <div className="mt-7 min-w-0 max-w-full overflow-x-auto overscroll-x-contain rounded-3xl border border-[var(--line)] bg-[var(--surface)] shadow-sm">
+                <table className="dashboard-table w-full min-w-[900px] lg:min-w-0 text-left text-sm">
                     <thead className="border-b border-[var(--line)] bg-emerald-50/60 text-xs uppercase tracking-wide text-[var(--muted)] dark:bg-emerald-950/50">
                         <tr>
                             <th className="p-4">Property</th>
