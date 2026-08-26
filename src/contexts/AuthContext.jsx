@@ -10,10 +10,7 @@ export function AuthProvider({ children }) {
     const [isLoading, setIsLoading] = useState(true);
 
     const setUser = useCallback((userData) => {
-        if (userData?.token && typeof window !== "undefined") {
-            localStorage.setItem("token", userData.token);
-            localStorage.setItem("accessToken", userData.token);
-        }
+
         setUserState(userData);
     }, []);
 
@@ -50,8 +47,7 @@ export function AuthProvider({ children }) {
 
         setUser(null);
         if (typeof window !== "undefined") {
-            localStorage.removeItem("token");
-            localStorage.removeItem("accessToken");
+
         }
         setIsLoading(false);
     }, [setUser]);
@@ -70,8 +66,7 @@ export function AuthProvider({ children }) {
             await api.post("/auth/logout");
         } finally {
             if (typeof window !== "undefined") {
-                localStorage.removeItem("token");
-                localStorage.removeItem("accessToken");
+
             }
             setUser(null);
         }
