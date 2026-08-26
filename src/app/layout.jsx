@@ -16,6 +16,14 @@ const geistMono = Geist_Mono({
 export const metadata = {
     title: "Nestora | Find a place that feels like home",
     description: "A trusted platform for discovering, listing, and booking rental properties.",
+    icons: {
+        icon: [
+            { url: "/favicon.ico", sizes: "any" },
+            { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+        ],
+        shortcut: "/favicon.ico",
+        apple: "/icon-192.png",
+    },
 };
 
 export default function RootLayout({ children }) {
