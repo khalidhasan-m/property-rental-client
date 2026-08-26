@@ -149,22 +149,30 @@ export default function AdminPropertiesPage() {
                                 </td>
                                 <td className="p-4 min-w-[180px] whitespace-nowrap">
                                     <div className="flex flex-nowrap items-center gap-1.5">
-                                        {property.status !== "approved" && (
-                                            <Button isIconOnly size="sm" color="success" variant="flat" aria-label="Approve" onPress={() => setModerating({ property, status: "approved" })}>
-                                                <Check size={16}/>
+                                        <span className="flex size-8 shrink-0 items-center justify-center">
+                                            {property.status !== "approved" && (
+                                                <Button isIconOnly size="sm" color="success" variant="flat" aria-label="Approve" onPress={() => setModerating({ property, status: "approved" })}>
+                                                    <Check size={16}/>
+                                                </Button>
+                                            )}
+                                        </span>
+                                        <span className="flex size-8 shrink-0 items-center justify-center">
+                                            {property.status !== "rejected" && (
+                                                <Button isIconOnly size="sm" color="danger" variant="flat" aria-label="Reject" onPress={() => setModerating({ property, status: "rejected" })}>
+                                                    <X size={16}/>
+                                                </Button>
+                                            )}
+                                        </span>
+                                        <span className="flex size-8 shrink-0 items-center justify-center">
+                                            <Button isIconOnly size="sm" variant="flat" aria-label="Update" onPress={() => beginEdit(property)}>
+                                                <Edit3 size={16}/>
                                             </Button>
-                                        )}
-                                        {property.status !== "rejected" && (
-                                            <Button isIconOnly size="sm" color="danger" variant="flat" aria-label="Reject" onPress={() => setModerating({ property, status: "rejected" })}>
-                                                <X size={16}/>
+                                        </span>
+                                        <span className="flex size-8 shrink-0 items-center justify-center">
+                                            <Button isIconOnly size="sm" color="danger" variant="flat" aria-label="Delete" onPress={() => setDeleting(property)}>
+                                                <Trash2 size={16}/>
                                             </Button>
-                                        )}
-                                        <Button isIconOnly size="sm" variant="flat" aria-label="Update" onPress={() => beginEdit(property)}>
-                                            <Edit3 size={16}/>
-                                        </Button>
-                                        <Button isIconOnly size="sm" color="danger" variant="light" aria-label="Delete" onPress={() => setDeleting(property)}>
-                                            <Trash2 size={16}/>
-                                        </Button>
+                                        </span>
                                     </div>
                                 </td>
                             </tr>
