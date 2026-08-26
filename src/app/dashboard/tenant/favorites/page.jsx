@@ -54,7 +54,7 @@ export default function FavoritesPage() {
                   <td className="p-4"><Link href={`/properties/${property._id}`} className="font-black text-[var(--brand)] hover:underline">{property.title}</Link></td>
                   <td className="p-4">{property.location}</td>
                   <td className="p-4"><Chip size="sm" variant="flat" className="capitalize">{property.propertyType}</Chip></td>
-                  <td className="p-4 font-bold">${property.rent.toLocaleString()} <span className="font-normal text-[var(--muted)]">/ {property.rentType.replace("ly", "")}</span></td>
+                  <td className="p-4 font-bold">${property.rent.toLocaleString()} <span className="font-normal text-[var(--muted)]">/ {{ monthly: "month", weekly: "week", daily: "day" }[property.rentType] || property.rentType || "month"}</span></td>
                   <td className="p-4"><Button size="sm" color="danger" variant="flat" onPress={() => setSelected(property)}><HeartOff size={15} />Remove</Button></td>
                 </tr>
               ))}

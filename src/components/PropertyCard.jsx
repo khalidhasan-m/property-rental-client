@@ -87,7 +87,7 @@ export function PropertyCard({ property, index = 0 }) {
                     <div>
                         <span className="text-xl font-black text-[var(--brand)]">${property.rent?.toLocaleString()}</span>
                         <span className="ml-1 text-xs font-medium text-[var(--muted)]">
-                            /{property.rentType?.replace("ly", "") || "mo"}
+                            /{{ monthly: "month", weekly: "week", daily: "day" }[property.rentType] || property.rentType || "mo"}
                         </span>
                     </div>
                     <Link onClick={onNavigate} href={href}

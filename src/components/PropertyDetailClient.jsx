@@ -19,6 +19,8 @@ const bookingSchema = z.object({
     notes: z.string().max(1000).optional(),
 });
 
+const RENT_LABELS = { monthly: "month", weekly: "week", daily: "day" };
+
 export function PropertyDetailClient({ id }) {
     const router = useRouter();
     const { user, isLoading: authLoading } = useAuth();
@@ -222,7 +224,7 @@ useEffect(() => {
                                 </span>
                                 {property.rentType && (
                                     <span className="rounded-full bg-[var(--surface-2)] px-3 py-1 text-xs font-bold text-[var(--muted)] capitalize">
-                                        {property.rentType}
+                                        {RENT_LABELS[property.rentType] || property.rentType}
                                     </span>
                                 )}
                             </div>
@@ -367,7 +369,7 @@ useEffect(() => {
                         <div className="flex items-baseline justify-between border-b border-[var(--line)] pb-4">
                             <div>
                                 <span className="text-3xl font-black tracking-tight text-[var(--brand)]">${property.rent?.toLocaleString()}</span>
-                                <span className="text-sm font-semibold text-[var(--muted)]"> /{property.rentType || "month"}</span>
+                                <span className="text-sm font-semibold text-[var(--muted)]"> /{RENT_LABELS[property.rentType] || property.rentType || "month"}</span>
                             </div>
                             <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-black text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
                                 Available
@@ -426,7 +428,7 @@ useEffect(() => {
                                     </div>
                                     <div className="ml-auto text-right">
                                         <p className="text-xl font-black text-[var(--brand)]">${property.rent?.toLocaleString()}</p>
-                                        <p className="text-xs text-[var(--muted)]">/{property.rentType || "month"}</p>
+                                        <p className="text-xs text-[var(--muted)]">/{RENT_LABELS[property.rentType] || property.rentType || "month"}</p>
                                     </div>
                                 </div>
 

@@ -12,7 +12,7 @@ This repository contains the **Next.js client application**. The backend API is 
 | Server repository | [`khalidhasan-m/property-rental-server`](https://github.com/khalidhasan-m/property-rental-server) |
 | Frontend live URL | https://property-rental-client-eight.vercel.app/ |
 | Local frontend URL | `http://localhost:3000` |
-| Local API URL | `http://localhost:5000/api/v1` |
+| Local API URL | `http://localhost:5050/api/v1` |
 
 ## Features
 
@@ -91,11 +91,11 @@ Edit `.env.local` with the values below:
 
 | Variable | Required | Description |
 |---|---|---|
-| `NEXT_PUBLIC_API_URL` | Yes | API base URL, normally `http://localhost:5000/api/v1` locally. |
+| `NEXT_PUBLIC_API_URL` | Yes | API base URL, normally `http://localhost:5050/api/v1` locally. |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | For payments | Browser-safe Stripe publishable key. Use a test key during development. |
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | For Google sign-in | Google OAuth web client ID. If omitted, the Google button is not rendered. |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | For Google sign-in | Google OAuth web client ID used by the configured Google sign-in flow. |
 
-Never put `STRIPE_SECRET_KEY`, `MONGODB_URI`, `JWT_SECRET`, or `IMGBB_API_KEY` in this repository or in any `NEXT_PUBLIC_*` variable. Local environment files are ignored by Git.
+Never put `STRIPE_SECRET_KEY`, `MONGODB_URI`, `JWT_SECRET`, or `IMGBB_API_KEY` in this repository or in any `NEXT_PUBLIC_*` variable. Keep local environment files ignored by Git and use Vercel Environment Variables for production.
 
 ## Development commands
 
@@ -122,7 +122,7 @@ npm run start
 
 ## Backend integration
 
-The Axios client is defined in `src/lib/api.js`. It reads `NEXT_PUBLIC_API_URL`, sends JSON requests, and enables `withCredentials` so the backend can read the HTTP-only `accessToken` cookie. The client restores the current account by calling `/auth/me` when the application starts; it does not store the JWT in local storage.
+The Axios client is defined in `src/lib/api.js`. It reads `NEXT_PUBLIC_API_URL`, sends JSON requests, and enables `withCredentials` so the backend can read the HTTP-only `accessToken` cookie. The client restores the current account by calling `/auth/me` when the application starts and does not store the JWT in local storage.
 
 Start the companion server in a separate terminal before using authentication, favourites, booking, payment, reviews, analytics, or admin pages:
 
