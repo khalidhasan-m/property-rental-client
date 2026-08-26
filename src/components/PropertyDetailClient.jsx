@@ -56,6 +56,20 @@ export function PropertyDetailClient({ id }) {
         ]).catch(() => setProperty(null)).finally(() => setLoading(false));
     }, [authLoading, user, id, router, fetchReviews]);
 
+// Load user's favorites to set initial liked state
+useEffect(() => {
+  if (authLoading || !user) return;
+  api.get('/favorites')
+    .then((r) => {
+      const favs = r.data?.data || [];
+      const isFav = favs.some((fav) => fav.propertyId === id || fav._id === id);
+      setLiked(isFav);
+    })
+    .catch(() => {
+      // ignore errors
+    });
+}, [authLoading, user, id]);
+
     const images = property?.images?.length ? property.images : ["https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80"];
 
     const openLightbox = (index) => {
@@ -130,7 +144,7 @@ export function PropertyDetailClient({ id }) {
     if (authLoading || (!user && !property)) return <LoadingState label="Checking your access…"/>;
     if (loading) return <LoadingState label="Loading property details…"/>;
     if (!property) return (
-        <div className="mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8 py-24 text-center">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-24 text-center">
             <div className="mx-auto mb-5 grid size-16 place-items-center rounded-2xl bg-rose-100 text-rose-600 dark:bg-rose-950">
                 <MapPin size={28}/>
             </div>
@@ -145,7 +159,7 @@ export function PropertyDetailClient({ id }) {
     const canBook = user?.role === "tenant";
 
     return (
-        <div className="mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             {/* Single Big Featured Image */}
             <div
                 className="relative w-full overflow-hidden rounded-3xl cursor-pointer group border border-[var(--line)] bg-[var(--surface-2)] shadow-md"
@@ -524,7 +538,7 @@ export function PropertyDetailClient({ id }) {
                             <button
                                 type="button"
                                 onClick={() => {
-                                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(property?.title || "Property")}&url=${encodeURIComponent(window.location.href)}`, "_blank");
+                                    window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(property?.title || "Property")}&url=${encodeURIComponent(window.location.href)}`, "_blank");
                                     setIsShareOpen(false);
                                 }}
                                 className="flex items-center gap-3 rounded-2xl border border-[var(--line)] bg-[var(--surface-2)] p-3.5 text-left font-bold text-sm transition-all hover:scale-102 hover:shadow-md"
@@ -532,7 +546,7 @@ export function PropertyDetailClient({ id }) {
                                 <div className="grid size-9 shrink-0 place-items-center rounded-xl bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
                                 </div>
-                                <span>X (Twitter)</span>
+                                 <span>X</span>
                             </button>
 
                             <button

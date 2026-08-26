@@ -15,7 +15,9 @@ export function LayoutWrapper({ children }) {
         <LayoutContext.Provider value={{ hideLayout, setHideLayout }}>
             <div className="flex min-h-screen flex-col">
                 {!hideLayout && <Header />}
-                <main className="flex-1 flex flex-col">{children}</main>
+                <main className="flex-1 flex flex-col">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
+                </main>
                 {!hideLayout && <Footer />}
             </div>
         </LayoutContext.Provider>

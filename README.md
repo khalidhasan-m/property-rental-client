@@ -10,7 +10,7 @@ This repository contains the **Next.js client application**. The backend API is 
 |---|---|
 | Client repository | [`khalidhasan-m/property-rental-client`](https://github.com/khalidhasan-m/property-rental-client) |
 | Server repository | [`khalidhasan-m/property-rental-server`](https://github.com/khalidhasan-m/property-rental-server) |
-| Frontend live URL | **Add the deployed frontend URL here before submission.** |
+| Frontend live URL | https://property-rental-client-eight.vercel.app/ |
 | Local frontend URL | `http://localhost:3000` |
 | Local API URL | `http://localhost:5000/api/v1` |
 

@@ -53,7 +53,7 @@ export function Header() {
                 ? "bg-[var(--surface)]/95 shadow-md shadow-emerald-950/5 backdrop-blur-2xl"
                 : "bg-[var(--surface)]/90 backdrop-blur-xl shadow-xs"
         }`}>
-            <div className="mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between gap-4">
+            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between gap-4">
                 {/* Logo */}
                 <Link href="/" className="group flex items-center gap-3 shrink-0">
                     <NestoraLogo size={36} className="transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-6" />
@@ -183,7 +183,7 @@ export function Header() {
                         transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
                         className="overflow-hidden border-t border-[var(--line)] bg-[var(--surface)] md:hidden shadow-lg"
                     >
-                        <nav className="mx-auto w-full max-w-[1180px] px-4 py-4 grid gap-1.5" aria-label="Mobile navigation">
+                        <nav className="mx-auto w-full max-w-7xl px-4 py-4 grid gap-1.5" aria-label="Mobile navigation">
                             {navItems.map((item) => {
                                 const active = pathname === item.href;
                                 const Icon = item.icon;

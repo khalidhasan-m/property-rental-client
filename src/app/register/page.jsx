@@ -22,17 +22,17 @@ const schema = z.object({
 
 export default function RegisterPage() {
     const router = useRouter();
-    const { setUser, user, loading } = useAuth();
+    const { setUser, user, isLoading } = useAuth();
     const { register, handleSubmit, setValue, watch, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(schema),
         defaultValues: { role: "tenant", photoURL: "" }
     });
 
     useEffect(() => {
-        if (!loading && user) {
+        if (!isLoading && user) {
             router.replace("/dashboard");
         }
-    }, [user, loading, router]);
+    }, [user, isLoading, router]);
 
     const onSubmit = async (values) => {
         try {

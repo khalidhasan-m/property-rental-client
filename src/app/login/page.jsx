@@ -17,14 +17,14 @@ const getSafeRedirect = () => { if (typeof window === "undefined") return "/dash
 
 export default function LoginPage() {
     const router = useRouter();
-    const { setUser, user, loading } = useAuth();
+    const { setUser, user, isLoading } = useAuth();
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema) });
 
     useEffect(() => {
-        if (!loading && user) {
+        if (!isLoading && user) {
             router.replace(getSafeRedirect());
         }
-    }, [user, loading, router]);
+    }, [user, isLoading, router]);
 
     const onSubmit = async (values) => {
         try {
