@@ -40,10 +40,10 @@ const socialLinks = [
 export function Footer() {
     const year = new Date().getFullYear();
     return (
-        <footer className="mt-auto border-t border-[var(--line)] bg-[var(--surface)]">
+        <footer className="mt-auto w-full border-t border-[var(--line)] bg-[var(--surface)]">
             {/* Stats bar */}
             <div className="border-b border-white/10 bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 py-6">
-                <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="w-full px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center sm:gap-8">
                         <div className="flex min-w-0 items-center justify-center gap-3 sm:gap-6">
                             {/* Users icon */}
@@ -76,7 +76,7 @@ export function Footer() {
             </div>
 
             {/* Main footer body */}
-            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-10 py-14 md:grid-cols-[1.8fr_1fr_1fr_1fr]">
+            <div className="w-full px-4 sm:px-6 lg:px-8 grid gap-10 py-14 md:grid-cols-[1.8fr_1fr_1fr_1fr]">
                 {/* Brand column */}
                 <div>
                     <Link href="/" className="group mb-4 inline-flex items-center gap-2.5">
@@ -147,7 +147,7 @@ export function Footer() {
 
             {/* Bottom bar */}
             <div className="border-t border-[var(--line)]">
-                <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-3 py-5">
+                <div className="w-full px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-3 py-5">
                     <p className="text-xs text-[var(--muted)]">
                         © {year} <strong className="text-[var(--foreground)]">Nestora</strong>. All rights reserved. Built for better rental decisions.
                     </p>
