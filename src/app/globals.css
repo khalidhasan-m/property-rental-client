@@ -142,3 +142,21 @@ main { animation: fadeUp 0.35s cubic-bezier(0.23,1,0.32,1) both; }
     overflow-wrap: anywhere;
   }
 }
+
+/* Keep owner booking decisions contained when the table compacts on desktop. */
+@media (min-width: 1024px) {
+  .booking-requests-table th:nth-child(1),
+  .booking-requests-table td:nth-child(1) { width: 24%; }
+  .booking-requests-table th:nth-child(2),
+  .booking-requests-table td:nth-child(2) { width: 24%; }
+  .booking-requests-table th:nth-child(3),
+  .booking-requests-table td:nth-child(3) { width: 12%; }
+  .booking-requests-table th:nth-child(4),
+  .booking-requests-table td:nth-child(4) { width: 12%; }
+  .booking-requests-table th:nth-child(5),
+  .booking-requests-table td:nth-child(5) { width: 9%; }
+  .booking-requests-table th:nth-child(6),
+  .booking-requests-table td:nth-child(6) { width: 19%; }
+  .booking-requests-table .booking-actions-cell { white-space: nowrap; }
+  .booking-requests-table .booking-actions-cell > div { display: flex; flex-wrap: nowrap; gap: 0.5rem; }
+}
