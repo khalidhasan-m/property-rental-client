@@ -118,9 +118,10 @@ export default function Home() {
     };
 
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-hidden">
             {/* ══════════════════ HERO BANNER ══════════════════ */}
-            <section className="relative isolate overflow-hidden py-20 text-white sm:py-28 lg:py-32">
+            {/* Full-bleed background only; content stays constrained */}
+            <section className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 isolate overflow-hidden py-20 text-white sm:py-28 lg:py-32">
                 <Image
                     src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=90"
                     alt="Luxury architectural rental property"
@@ -132,7 +133,7 @@ export default function Home() {
                 <div className="pointer-events-none absolute -right-28 top-10 size-96 rounded-full bg-amber-400/20 blur-3xl" />
                 <div className="pointer-events-none absolute -left-28 bottom-[-10rem] size-96 rounded-full bg-emerald-400/20 blur-3xl" />
 
-                <div className="mx-auto w-full max-w-full lg:max-w-[1180px] px-4 sm:px-6 lg:px-8 relative grid items-center gap-12 lg:grid-cols-[1.1fr_.9fr]">
+                <div className="relative mx-auto grid w-full max-w-full items-center gap-12 px-4 sm:px-6 lg:max-w-[1180px] lg:px-8 lg:grid-cols-[1.1fr_.9fr]">
                     <motion.div
                         initial={{ opacity: 0, y: 28 }}
                         animate={{ opacity: 1, y: 0 }}
