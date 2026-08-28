@@ -118,9 +118,9 @@ export default function Home() {
     };
 
     return (
-        <div className="overflow-x-clip">
+        <div className="overflow-x-auto">
             {/* ══════════════════ HERO BANNER ══════════════════ */}
-            <section className="relative left-1/2 isolate w-screen -translate-x-1/2 overflow-hidden py-20 text-white sm:py-28 lg:py-32">
+            <section className="relative isolate overflow-hidden py-20 text-white sm:py-28 lg:py-32">
                 <Image
                     src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=90"
                     alt="Luxury architectural rental property"
